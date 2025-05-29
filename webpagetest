@@ -1,22 +1,37 @@
-import static org.testng.Assert.assertTrue;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
 public class WebPageTest {
     private static WebDriver driver;
+
     @BeforeTest
     public void openBrowser() throws InterruptedException {
+        // Initialize ChromeDriver
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        Thread.sleep(2000);
-        driver.get("https://kruthika3129.github.io/devops_practice-gradle/");
+        Thread.sleep(2000); // Wait for the browser to load
+        driver.get("https://kruthika3129.github.io/testpracticegradle2/");
     }
-    @Test public void titleValidationTest(){
+
+    @Test
+    public void titleValidationTest() {
         String actualTitle = driver.getTitle();
         String expectedTitle = "My Simple Website";
+
+        // Validate exact match
         Assert.assertEquals(actualTitle, expectedTitle);
-        assertTrue(true,"");
+
+        // Validate title contains the word "Tripillar"
+        Assert.assertTrue(actualTitle.contains("My Simple Website"), "Title should contain 'Tripillar'");
     }
+
     @AfterTest
     public void closeBrowser() throws InterruptedException {
         Thread.sleep(1000);
-        driver.quit();
+        driver.quit(); // Close browser
     }
 }
